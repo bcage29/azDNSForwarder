@@ -15,4 +15,4 @@ RUN apk add --no-cache bind
 # Not going to expose TCP port 53 as it is not needed for this example
 EXPOSE 53/udp
 
-ENTRYPOINT ["/usr/sbin/named", "-g"]
+ENTRYPOINT ["/usr/sbin/named", "-g", "-c", "/etc/bind/named.conf", "-u", "dnsUser"]
