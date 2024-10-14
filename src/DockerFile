@@ -1,0 +1,15 @@
+FROM alpine:latest
+
+# Copy the bind configuration files
+ADD named.conf /etc/bind/
+
+# Install bind DNS server
+# --no-cache will not store it in index on the local machine
+RUN apk add --no-cache bind
+
+# 53 is the standard port for DNS queries and responses. 
+# UDP is typically used for standard queries
+# While TCP is used for larger queries and zone transfers.
+EXPOSE 53/udp 53/tcp
+
+ENTRYPOINT ["/usr/sbin/named", "-g"]
